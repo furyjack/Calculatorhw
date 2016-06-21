@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,12 +45,100 @@ public class MainActivity extends AppCompatActivity {
         EdTotalDisplay.setInputType(InputType.TYPE_NULL);
 
          EdTotalDisplay.setGravity(Gravity.CENTER_VERTICAL|Gravity.RIGHT);
+        tvPartial.setGravity(Gravity.CENTER_VERTICAL|Gravity.RIGHT);
 
 
 
 
 
     }
+
+    private void evaluate(String prev) {
+
+        int i;
+        char c=',';
+        for( i=prev.length()-1;i>=0;i--)
+        {
+            if(prev.charAt(i)=='+' || prev.charAt(i)=='-' || prev.charAt(i)=='*' || prev.charAt(i)=='%' )
+            {
+                c=prev.charAt(i);
+                break;
+            }
+        }
+
+        if(c==',')
+        {
+            tvPartial.setText(prev);
+            return;
+        }
+        String l=prev.substring(i+1);
+        String l1;
+        l1=l.substring(0,l.length()-1);
+        float x=Float.parseFloat(l);
+        float x1=0;
+        if(!l1.isEmpty()) {
+           x1 = Float.parseFloat(l1);
+        }
+        float y=Float.parseFloat(""+tvPartial.getText());
+        float z=0;
+       if(c=='+') {
+
+           if(!l1.isEmpty())
+           z = x + y - x1;
+           else
+               z=x+y;
+       }
+       else if(c=='-')
+       {
+
+           if(!l1.isEmpty())
+               z = y-x+ x1;
+           else
+               z=y-x;
+       }
+       else if(c=='*')
+       {
+
+           try
+           {
+           if(!l1.isEmpty())
+               z = (x *y) / x1;
+           else
+               z=x*y;
+           }
+           catch(ArithmeticException e)
+           {
+               Toast.makeText(MainActivity.this, "Divide by Zero ", Toast.LENGTH_SHORT).show();
+
+           }
+       }
+
+       else if(c=='%')
+       {
+         try {
+             if (!l1.isEmpty())
+                 z = (y/x) * x1;
+             else
+                 z = y/x;
+         }
+         catch (ArithmeticException e)
+         {
+             Toast.makeText(MainActivity.this, "Divide by Zero ", Toast.LENGTH_SHORT).show();
+
+         }
+       }
+
+       else
+       {
+
+           z=x;
+       }
+
+            tvPartial.setText(""+z);
+
+    }
+
+
 
 
     private TextView tvPartial;
@@ -72,7 +161,13 @@ public class MainActivity extends AppCompatActivity {
                 {
 
                     case R.id.btn_add:
-                         prev=EdTotalDisplay.getText().toString();
+                        prev=EdTotalDisplay.getText().toString();
+                        if(prev.isEmpty() || prev.endsWith("+") || prev.endsWith("-") || prev.endsWith("%") || prev.endsWith("*") || prev.endsWith("."))
+                        {
+                            Toast.makeText(MainActivity.this, "Format Error", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+
                         prev+="+";
                         EdTotalDisplay.setText(prev);
 
@@ -81,75 +176,109 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.btn_sub:
                          prev=EdTotalDisplay.getText().toString();
+                        if(prev.isEmpty() || prev.endsWith("+") || prev.endsWith("-") || prev.endsWith("%") || prev.endsWith("*") || prev.endsWith("."))
+                        {
+                            Toast.makeText(MainActivity.this, "Format Error", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                         prev+="-";
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.btn_mul:
                          prev=EdTotalDisplay.getText().toString();
+                        if(prev.isEmpty() || prev.endsWith("+") || prev.endsWith("-") || prev.endsWith("%") || prev.endsWith("*") || prev.endsWith("."))
+                        {
+                            Toast.makeText(MainActivity.this, "Format Error", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                         prev+="*";
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.btn_divide:
                          prev=EdTotalDisplay.getText().toString();
-                        prev+="/";
+                        if(prev.isEmpty() || prev.endsWith("+") || prev.endsWith("-") || prev.endsWith("%") || prev.endsWith("*") || prev.endsWith("."))
+                        {
+                            Toast.makeText(MainActivity.this, "Format Error", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        prev+="%";
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_0:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="0";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_1:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="1";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_2:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="2";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_3:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="3";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
 
                     case R.id.keypad_4:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="4";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_5:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="5";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_6:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="6";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_7:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="7";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_8:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="8";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_9:
                          prev=EdTotalDisplay.getText().toString();
                         prev+="9";
+                        evaluate(prev);
                         EdTotalDisplay.setText(prev);
                         break;
                     case R.id.keypad_equal:
+                        prev=tvPartial.getText().toString();
+                        EdTotalDisplay.setText(prev);
                         break;
+
+
                     case R.id.keypad_multi:
                         if(btnKeypadmulti.getText().equals("."))
                         {   prev=EdTotalDisplay.getText().toString();
+                            if(prev.isEmpty() || prev.endsWith("+") || prev.endsWith("-") || prev.endsWith("/") || prev.endsWith("*") || prev.endsWith("."))
+                            {
+                                Toast.makeText(MainActivity.this, "Format Error", Toast.LENGTH_SHORT).show();
+                                break;
+                            }
                             prev+=".";
                             EdTotalDisplay.setText(prev);}
                         else

@@ -13,6 +13,9 @@
         android:layout_height="0dp"
         android:layout_weight="1.2"
         android:id="@+id/tv_partial_disp"
+        android:text="0"
+        android:textColor="#9E9E9E"
+        android:textSize="40sp"
 
         />
     
@@ -21,8 +24,9 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:id="@+id/et_display_total"
-        android:padding="20dp"
-        android:textSize="60sp"
+        android:padding="10dp"
+        android:textSize="50sp"
+        android:maxLength="15"
         android:inputType="none"
         android:gravity="center_vertical"
 
@@ -49,7 +53,7 @@
             android:layout_weight="1"
             android:text="%"
             android:background="#26C6DA"
-            android:textSize="60sp"
+            android:textSize="50sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             style="@style/Widget.AppCompat.Button.Borderless"
             tools:ignore="HardcodedText,NestedWeights" />
@@ -63,7 +67,7 @@
             android:paddingTop="10dp"
             android:textColor="#ffffff"
             android:background="#26C6DA"
-            android:textSize="60sp"
+            android:textSize="50sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             style="@style/Widget.AppCompat.Button.Borderless"
             tools:ignore="HardcodedText,NestedWeights" />
@@ -76,7 +80,7 @@
             android:text="-"
             android:textColor="#ffffff"
             android:background="#26C6DA"
-            android:textSize="60sp"
+            android:textSize="50sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             style="@style/Widget.AppCompat.Button.Borderless"
             tools:ignore="HardcodedText,NestedWeights" />
